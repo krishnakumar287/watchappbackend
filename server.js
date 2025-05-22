@@ -47,16 +47,14 @@ app.use('/uploads', (req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
-}, express.static(path.join(__dirname, '../admin-panel/Backend/uploads')));
+}, express.static(path.join(__dirname, 'uploads')));
 
-// Dedicated image endpoint
+// Dedicated image endpoint (now matches uploads path for Render)
 app.get('/image/:filename', (req, res) => {
   const filename = req.params.filename;
-  const imagePath = path.join(__dirname, '../admin-panel/Backend/uploads', filename);
-  
+  const imagePath = path.join(__dirname, 'uploads', filename);
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   res.setHeader('Access-Control-Allow-Origin', '*');
-  
   res.sendFile(imagePath, (err) => {
     if (err) {
       console.error(`Error sending file: ${filename}`, err);
